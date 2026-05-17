@@ -9,7 +9,7 @@ Hệ thống tự động hóa tạo video TikTok giữ chuẩn khuôn mặt và
 2. Chọn Template `RunPod PyTorch` hoặc Ubuntu cơ bản.
 3. Cấp Network Volume (150GB+) để lưu Model.
 
-### 2. Cài đặt Môi trường
+### 2. Cài đặt Môi trường (Trên Runpod Linux)
 Mở Terminal của Runpod và chạy:
 ```bash
 # Clone repo này
@@ -21,6 +21,21 @@ bash scripts/setup_env.sh
 
 # Chạy script tải AI Models (Vài chục GB, mất 15-30 phút)
 bash scripts/download_models.sh
+```
+
+### 3. Cài đặt Môi trường (Trên Local macOS - Apple Silicon)
+Nếu bạn dùng Macbook (chip M) và muốn test local trước khi lên server:
+```bash
+# Cấp quyền chạy cho các file script
+chmod +x scripts/*.sh
+
+# Chạy script cài đặt dành riêng cho Mac
+bash scripts/setup_mac.sh
+
+# Khởi động ComfyUI trên Mac
+cd ComfyUI
+source venv/bin/activate
+python main.py --force-fp16
 ```
 
 ### 3. Tự động hóa tạo Video (API Agent)
