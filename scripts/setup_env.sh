@@ -4,7 +4,12 @@
 echo "🚀 Bắt đầu cài đặt ComfyUI và các Custom Nodes..."
 
 # 1. Cài đặt các thư viện hệ thống cần thiết
-sudo apt-get update && sudo apt-get install -y git wget aria2 python3.10-venv ffmpeg libgl1
+if command -v sudo &> /dev/null; then
+    SUDO="sudo"
+else
+    SUDO=""
+fi
+$SUDO apt-get update && $SUDO apt-get install -y git wget aria2 python3.10-venv ffmpeg libgl1
 
 # 2. Clone ComfyUI nếu chưa có
 if [ ! -d "/workspace/ComfyUI" ]; then
