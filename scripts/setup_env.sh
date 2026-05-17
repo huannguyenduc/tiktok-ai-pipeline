@@ -11,16 +11,23 @@ else
 fi
 $SUDO apt-get update && $SUDO apt-get install -y git wget aria2 python3.10-venv ffmpeg libgl1
 
-# 2. Clone ComfyUI nếu chưa có
-if [ ! -d "/workspace/ComfyUI" ]; then
-    echo "Cloning ComfyUI..."
-    git clone https://github.com/comfyanonymous/ComfyUI.git /workspace/ComfyUI
+# Tự động tìm đường dẫn ComfyUI gốc (nếu dùng template runpod-slim thì nó nằm ở đây)
+if [ -d "/workspace/runpod-slim/ComfyUI" ]; then
+    COMFY_DIR="/workspace/runpod-slim/ComfyUI"
+    echo "Phát hiện ComfyUI đã cài sẵn tại: $COMFY_DIR"
 else
-    echo "ComfyUI đã tồn tại."
+    COMFY_DIR="/workspace/ComfyUI"
+    # 2. Clone ComfyUI nếu chưa có
+    if [ ! -d "$COMFY_DIR" ]; then
+        echo "Cloning ComfyUI..."
+        git clone https://github.com/comfyanonymous/ComfyUI.git $COMFY_DIR
+    else
+        echo "ComfyUI đã tồn tại."
+    fi
 fi
 
 # 3. Chuyển vào thư mục custom_nodes
-cd /workspace/ComfyUI/custom_nodes
+cd $COMFY_DIR/custom_nodes
 
 # Clone các Custom Nodes bắt buộc cho Vid2Vid và FaceSwap
 echo "Cloning Custom Nodes..."
@@ -29,6 +36,8 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 
 # AnimateDiff (Engine Video)
 git clone https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved.git
+# HunyuanVideo Wrapper (Bắt buộc cho Hunyuan V2V)
+git clone https://github.com/kijai/ComfyUI-HunyuanVideoWrapper.git
 # Advanced ControlNet (Cho DWPose, Depth)
 git clone https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet.git
 # Video Helper (Load/Lưu Video)
@@ -40,7 +49,7 @@ git clone https://github.com/Fannovel16/comfyui_controlnet_aux.git
 
 # 4. Cài đặt Requirements cho các nodes
 echo "Cài đặt Python requirements..."
-cd /workspace/ComfyUI
+cd $COMFY_DIR
 pip install -r requirements.txt
 pip install opencv-python onnxruntime-gpu insightface
 
