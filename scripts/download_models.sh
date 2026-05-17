@@ -4,7 +4,7 @@
 
 echo "⬇️ Đang tải Siêu mô hình FLUX và HunyuanVideo..."
 
-COMFY_MODELS="/workspace/ComfyUI/models"
+COMFY_MODELS="/workspace/runpod-slim/ComfyUI/models"
 mkdir -p $COMFY_MODELS/checkpoints
 mkdir -p $COMFY_MODELS/unet
 mkdir -p $COMFY_MODELS/clip
