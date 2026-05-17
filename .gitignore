@@ -1,0 +1,16 @@
+# Thư mục chứa mã nguồn ComfyUI và Models (Quá nặng, không được đẩy lên Git)
+ComfyUI/
+models/
+venv/
+
+# Thư mục Media
+input/
+output/
+frames/
+
+# Mac OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
