@@ -36,6 +36,26 @@
     },
 
     {
+      "id": 30,
+      "type": "LoraLoader",
+      "pos": [-200, -330],
+      "size": [380, 120],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 10},
+        {"name": "clip", "type": "CLIP", "link": 30}
+      ],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [31], "slot_index": 0},
+        {"name": "CLIP", "type": "CLIP", "links": [32, 33], "slot_index": 1}
+      ],
+      "properties": {"Node name for S&R": "LoraLoader"},
+      "widgets_values": ["anna_flux_v1.safetensors", 1.0, 1.0]
+    }
+
+    {
       "id": 11,
       "type": "DualCLIPLoader",
       "pos": [-580, -160],
@@ -76,13 +96,13 @@
       "order": 4,
       "mode": 0,
       "inputs": [
-        {"name": "clip", "type": "CLIP", "link": 11}
+        {"name": "clip", "type": "CLIP", "link": 32}
       ],
       "outputs": [
         {"name": "CONDITIONING", "type": "CONDITIONING", "links": [13], "slot_index": 0}
       ],
       "properties": {"Node name for S&R": "CLIPTextEncode"},
-      "widgets_values": ["A beautiful young woman, highly detailed face, perfect skin, dancing pose, cinematic lighting, photorealistic, 8k"]
+      "widgets_values": ["anna_woman, highly detailed face, perfect skin, dancing pose, cinematic lighting, photorealistic, 8k"]
     },
 
     {
@@ -94,7 +114,7 @@
       "order": 5,
       "mode": 0,
       "inputs": [
-        {"name": "clip", "type": "CLIP", "link": 11}
+        {"name": "clip", "type": "CLIP", "link": 33}
       ],
       "outputs": [
         {"name": "CONDITIONING", "type": "CONDITIONING", "links": [14], "slot_index": 0}
@@ -128,7 +148,7 @@
       "order": 7,
       "mode": 0,
       "inputs": [
-        {"name": "model", "type": "MODEL", "link": 10},
+        {"name": "model", "type": "MODEL", "link": 31},
         {"name": "positive", "type": "CONDITIONING", "link": 13},
         {"name": "negative", "type": "CONDITIONING", "link": 14},
         {"name": "latent_image", "type": "LATENT", "link": 15}
@@ -378,10 +398,13 @@
   ],
 
   "links": [
-    [10, 10, 0, 16, 0, "MODEL"],
-    [11, 11, 0, 13, 0, "CLIP"],
-    [11, 11, 0, 14, 0, "CLIP"],
-    [12, 12, 0, 17, 1, "VAE"],
+  [10, 10, 0, 30, 0, "MODEL"],
+    [30, 11, 0, 30, 1, "CLIP"],
+    [31, 30, 0, 16, 0, "MODEL"],
+    [32, 30, 1, 13, 0, "CLIP"],
+    [33, 30, 1, 14, 0, "CLIP"],
+    [11, 12, 0, 17, 1, "VAE"],
+    [12, 15, 0, 16, 3, "LATENT"],
     [13, 13, 0, 16, 1, "CONDITIONING"],
     [14, 14, 0, 16, 2, "CONDITIONING"],
     [15, 15, 0, 16, 3, "LATENT"],
