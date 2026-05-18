@@ -53,7 +53,7 @@
       ],
       "properties": {"Node name for S&R": "LoraLoader"},
       "widgets_values": ["anna_flux_v1.safetensors", 1.0, 1.0]
-    }
+    },
 
     {
       "id": 11,
